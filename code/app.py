@@ -5,6 +5,7 @@ from flask_cors import CORS
 
 from security import authenticate, identity
 from resources.user import UserRegister, UsernameExists
+from resources.contact import Contact, ContactList
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
@@ -23,6 +24,8 @@ jwt = JWT(app, authenticate, identity)
 
 api.add_resource(UserRegister, '/register')
 api.add_resource(UsernameExists, '/usernameexists/<username>')
+api.add_resource(Contact, '/contact', '/contact/<_id>')
+api.add_resource(ContactList, '/contact/list')
 
 if __name__ == '__main__':
 	from db import db
